@@ -16,6 +16,8 @@ public class Test : MonoBehaviour {
 
 	private Dictionary<int, float> dictionary;
 
+	private SomeGenericClass<string> generic = new SomeGenericClass<string>();
+
 	public void OnEnable()
 	{
 		someClass = new SomeClass(1f);
@@ -41,8 +43,8 @@ public class Test : MonoBehaviour {
 		//Base line test, this should crash.
 		if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetButtonDown("A_1"))
 		{
-			var arr = dictionary.ToArray();
-			Debug.Log(arr[0]);
+			var list = generic.dictionary.ToList();
+			Debug.Log(list[0].Value);
 		}
 			
 		//IEnumerable foreach.
@@ -93,6 +95,17 @@ public class Test : MonoBehaviour {
 		public SomeStruct(float someValue)
 		{
 			SomeValue = someValue;
+		}
+	}
+
+	public class SomeGenericClass<T>
+	{
+		public Dictionary<string, T> dictionary;
+
+		public SomeGenericClass()
+		{
+			dictionary = new Dictionary<string, T>();
+			dictionary.Add("hello", default(T));
 		}
 	}
 }

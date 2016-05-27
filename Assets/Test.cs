@@ -4,10 +4,7 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
-<<<<<<< HEAD
 using System.Linq;
-=======
->>>>>>> origin/master
 
 public class Test : MonoBehaviour {
 
@@ -45,8 +42,7 @@ public class Test : MonoBehaviour {
 			var arr = dictionary.ToArray();
 			Debug.Log(arr[0]);
 		}
-
-<<<<<<< HEAD
+			
 		//IEnumerable foreach.
 		if (Input.GetKeyDown(KeyCode.Alpha2))
 		{
@@ -58,7 +54,7 @@ public class Test : MonoBehaviour {
 				i++;
 			}
 			Debug.Log(pairs[0]);
-=======
+		}
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Y_1"))
         {
 			var keyValuePairs = new KeyValuePair<int, float>[2]{new KeyValuePair<int, float>(1, 2f), new KeyValuePair<int, float>(3, 4f)};
@@ -66,7 +62,6 @@ public class Test : MonoBehaviour {
 			var formatter = new BinaryFormatter();
 			formatter.Serialize(stream, keyValuePairs);
 			Debug.Log(stream.Length);
->>>>>>> origin/master
 		}
 
 		/*if (Input.GetKeyDown(KeyCode.Y))

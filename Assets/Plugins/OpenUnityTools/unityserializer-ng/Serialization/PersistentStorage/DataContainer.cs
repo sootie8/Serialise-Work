@@ -84,9 +84,7 @@ namespace UnitySerializerNG.FilePreferences {
                 Stream stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
 
                 try {
-                    //formatter.Serialize(stream, dict.ToList());
-					string json = JsonConvert.SerializeObject(dict);
-					formatter.Serialize(stream, json);
+                    formatter.Serialize(stream, dict.ToList());
                 }
                 catch (SerializationException e) {
                     Debug.LogException(e);

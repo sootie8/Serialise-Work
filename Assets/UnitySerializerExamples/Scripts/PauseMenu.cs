@@ -51,27 +51,9 @@ public class PauseMenu : MonoBehaviour
         LevelSerializer.Progress -= HandleLevelSerializerProgress;
     }
 
-    private void Update() {
-        if (Input.GetKeyUp(KeyCode.P)) {
-            paused = !paused;
-
-            if (paused) {
-                Time.timeScale = 0.0f;
-                Time.fixedDeltaTime = Time.timeScale * 0.02f;
-                if (pausedGUI)
-                    pausedGUI.enabled = true;
-            }
-            else {
-                Time.timeScale = 1.0f;
-                Time.fixedDeltaTime = Time.timeScale * 0.02f;
-                if (pausedGUI)
-                    pausedGUI.enabled = false;
-            }
-
-            return;
-        }
-
-        if (Input.GetButtonDown("Start_1"))
+    private void Update()
+    {
+        if (Input.GetKeyUp(KeyCode.P) || Input.GetButtonDown("Start_1"))
         {
             paused = !paused;
 
@@ -91,12 +73,12 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("A_1"))
+        if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("A_1"))
         {
             Save();
         }
 
-        if (Input.GetButtonDown("Y_1"))
+        if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Y_1"))
         {
             foreach (LevelSerializer.SaveEntry sg in LevelSerializer.SavedGames[LevelSerializer.PlayerName])
             {

@@ -21,19 +21,18 @@ public class Test : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.O))
-		{
+        if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("A_1"))
+        {
 			Debug.Log(typeof(SomeClass).GetProperty("SomeValue").GetValue(someClass, null));
 		}
 
-		if (Input.GetKeyDown(KeyCode.P))
-		{
+		if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("B_1"))
+        {
 			Debug.Log(typeof(SomeStruct).GetProperty("SomeValue").GetValue(someStruct, null));
-		
 		}
 
-		if (Input.GetKeyDown(KeyCode.Y))
-		{
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Y_1"))
+        {
 			var keyValuePairs = new KeyValuePair<int, float>[2]{new KeyValuePair<int, float>(1, 2f), new KeyValuePair<int, float>(3, 4f)};
 			var stream = new MemoryStream(); 
 			var formatter = new BinaryFormatter();

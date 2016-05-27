@@ -14,7 +14,7 @@ using UnityEngine;
 namespace UnitySerializerNG.FilePreferences {
 
     [Serializable]
-    public class DataContainer<T> 
+    public class DataContainer 
 	{
 #pragma warning disable 0414
         private static GameObject QuitObject;
@@ -43,6 +43,7 @@ namespace UnitySerializerNG.FilePreferences {
 					}
 					else 
 					{
+						Debug.Log(raw.GetType());
 						dict = new Dictionary<string, object>();
 					}
                 }
@@ -113,16 +114,16 @@ namespace UnitySerializerNG.FilePreferences {
             }
         }
 
-        public T Get(string key) {
+        public object Get(string key) {
             try {
-                return (T)dict[key];
+                return  dict[key];
             }
             catch (KeyNotFoundException) {
-                return default(T);
+                return null;
             }
         }
 
-        public void Set(string key, T value) {
+        public void Set(string key, object value) {
             dict[key] = value;
         }
 

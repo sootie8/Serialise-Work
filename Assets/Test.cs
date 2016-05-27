@@ -101,11 +101,10 @@ public class Test : MonoBehaviour {
 
 	public class SomeGenericClass<T>
 	{
-		public Dictionary<string, T> dictionary;
+		public Dictionary<string, T> dictionary = new Dictionary<string, T>();
 
 		public SomeGenericClass()
 		{
-			dictionary = new Dictionary<string, T>();
 			dictionary.Add("hello", default(T));
 		}
 	}

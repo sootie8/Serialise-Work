@@ -85,8 +85,7 @@ namespace UnitySerializerNG.FilePreferences {
 
                 try 
 				{
-					var keyValuePairs = new KeyValuePair<int, float>[2]{new KeyValuePair<int, float>(1, 2f), new KeyValuePair<int, float>(3, 4f)};
-					formatter.Serialize(stream, keyValuePairs);
+					formatter.Serialize(stream, dict.ToArray());
                 }
                 catch (SerializationException e) {
                     Debug.LogException(e);

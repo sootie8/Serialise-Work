@@ -4,7 +4,10 @@ using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.IO;
+<<<<<<< HEAD
 using System.Linq;
+=======
+>>>>>>> origin/master
 
 public class Test : MonoBehaviour {
 
@@ -27,15 +30,14 @@ public class Test : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		if (Input.GetKeyDown(KeyCode.O))
-		{
+        if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("A_1"))
+        {
 			Debug.Log(typeof(SomeClass).GetProperty("SomeValue").GetValue(someClass, null));
 		}
 
-		if (Input.GetKeyDown(KeyCode.P))
-		{
+		if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("B_1"))
+        {
 			Debug.Log(typeof(SomeStruct).GetProperty("SomeValue").GetValue(someStruct, null));
-		
 		}
 		//Base line test, this should crash.
 		if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -44,6 +46,7 @@ public class Test : MonoBehaviour {
 			Debug.Log(arr[0]);
 		}
 
+<<<<<<< HEAD
 		//IEnumerable foreach.
 		if (Input.GetKeyDown(KeyCode.Alpha2))
 		{
@@ -55,6 +58,15 @@ public class Test : MonoBehaviour {
 				i++;
 			}
 			Debug.Log(pairs[0]);
+=======
+        if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Y_1"))
+        {
+			var keyValuePairs = new KeyValuePair<int, float>[2]{new KeyValuePair<int, float>(1, 2f), new KeyValuePair<int, float>(3, 4f)};
+			var stream = new MemoryStream(); 
+			var formatter = new BinaryFormatter();
+			formatter.Serialize(stream, keyValuePairs);
+			Debug.Log(stream.Length);
+>>>>>>> origin/master
 		}
 
 		/*if (Input.GetKeyDown(KeyCode.Y))

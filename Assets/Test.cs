@@ -16,11 +16,8 @@ public class Test : MonoBehaviour {
 
 	private Dictionary<int, float> dictionary;
 
-	private SomeGenericClass<string> generic;
-
 	public void OnEnable()
 	{
-		generic = new SomeGenericClass<string>();
 		someClass = new SomeClass(1f);
 		someStruct = new SomeStruct(1f);
 		dictionary = new Dictionary<int, float>();
@@ -41,13 +38,6 @@ public class Test : MonoBehaviour {
 			Debug.Log(typeof(SomeStruct).GetProperty("SomeValue").GetValue(someStruct, null));
 		}
         */
-		//Base line test, this should crash.
-		if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetButtonDown("A_1"))
-		{
-			var list = generic.dictionary.ToList();
-			Debug.Log(list[0].Value);
-		}
-			
 		//IEnumerable foreach.
 		if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown("B_1"))
 		{
@@ -69,14 +59,18 @@ public class Test : MonoBehaviour {
 			Debug.Log(stream.Length);
 		}
 
-		/*if (Input.GetKeyDown(KeyCode.Y))
+		if (Input.GetKeyDown(KeyCode.Y))
 		{
-			var keyValuePairs = new KeyValuePair<int, float>[2]{new KeyValuePair<int, float>(1, 2f), new KeyValuePair<int, float>(3, 4f)};
+			var keyValuePairs = new object[2]{1f, 2f};
 			var stream = new MemoryStream(); 
 			var formatter = new BinaryFormatter();
 			formatter.Serialize(stream, keyValuePairs);
-			Debug.Log(stream.Length);
-		}*/
+			stream.Position = 0;
+
+			var value = (object[])formatter.Deserialize(stream);
+
+			Debug.Log(value[0]);
+		}
 	}
 
 	public class SomeClass
@@ -96,16 +90,6 @@ public class Test : MonoBehaviour {
 		public SomeStruct(float someValue)
 		{
 			SomeValue = someValue;
-		}
-	}
-
-	public class SomeGenericClass<T>
-	{
-		public Dictionary<string, T> dictionary = new Dictionary<string, T>();
-
-		public SomeGenericClass()
-		{
-			dictionary.Add("hello", default(T));
 		}
 	}
 }

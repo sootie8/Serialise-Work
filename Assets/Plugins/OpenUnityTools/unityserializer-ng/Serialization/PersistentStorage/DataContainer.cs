@@ -14,7 +14,8 @@ using UnityEngine;
 namespace UnitySerializerNG.FilePreferences {
 
     [Serializable]
-    public class DataContainer<T> {
+    public class DataContainer<T> 
+	{
 #pragma warning disable 0414
         private static GameObject QuitObject;
 #pragma warning restore 0414
@@ -23,11 +24,10 @@ namespace UnitySerializerNG.FilePreferences {
         private string profileName;
         private string path;
 
-		private Dictionary<string, T> dict;
+		private Dictionary<string, object> dict = new Dictionary<string, object>();
 
         public DataContainer(string filename, string profile = "default") {
 
-			dict = new Dictionary<string, T>();
             this.profileName = profile;
             path = root + Path.DirectorySeparatorChar + profile + Path.DirectorySeparatorChar + filename;
 
@@ -36,10 +36,18 @@ namespace UnitySerializerNG.FilePreferences {
                 Stream stream = new FileStream(path, FileMode.Open, FileAccess.Read, FileShare.Read);
 
                 try {
-                    dict = (Dictionary<string, T>)formatter.Deserialize(stream);
+					var raw = formatter.Deserialize(stream);
+					if (raw.GetType() == typeof(Dictionary<string, object>))
+					{
+						dict = raw as Dictionary<string, object>;
+					}
+					else 
+					{
+						dict = new Dictionary<string, object>();
+					}
                 }
                 catch (SerializationException e) {
-                    Debug.LogException(e);
+                    Debug.LogError(e);
                     stream.Close();
                     RebuildFile();
                 }
@@ -87,7 +95,7 @@ namespace UnitySerializerNG.FilePreferences {
 
                 try 
 				{
-					formatter.Serialize(stream, dict.ToArray());
+					formatter.Serialize(stream, dict);
                 }
                 catch (SerializationException e) {
                     Debug.LogException(e);
@@ -107,7 +115,7 @@ namespace UnitySerializerNG.FilePreferences {
 
         public T Get(string key) {
             try {
-                return dict[key];
+                return (T)dict[key];
             }
             catch (KeyNotFoundException) {
                 return default(T);

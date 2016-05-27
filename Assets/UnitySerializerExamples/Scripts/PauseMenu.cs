@@ -73,12 +73,12 @@ public class PauseMenu : MonoBehaviour
             }
         }
 
-        if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("A_1"))
+        if (Input.GetKeyDown(KeyCode.S) || Input.GetButtonDown("A_1"))
         {
             Save();
         }
 
-        if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("Y_1"))
+        if (Input.GetKeyDown(KeyCode.L) || Input.GetButtonDown("Y_1"))
         {
             foreach (LevelSerializer.SaveEntry sg in LevelSerializer.SavedGames[LevelSerializer.PlayerName])
             {

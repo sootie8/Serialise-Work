@@ -27,6 +27,7 @@ public class Test : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
+        /*
         if (Input.GetKeyDown(KeyCode.O) || Input.GetButtonDown("A_1"))
         {
 			Debug.Log(typeof(SomeClass).GetProperty("SomeValue").GetValue(someClass, null));
@@ -36,15 +37,16 @@ public class Test : MonoBehaviour {
         {
 			Debug.Log(typeof(SomeStruct).GetProperty("SomeValue").GetValue(someStruct, null));
 		}
+        */
 		//Base line test, this should crash.
-		if (Input.GetKeyDown(KeyCode.Alpha1))
+		if (Input.GetKeyDown(KeyCode.Alpha1) || Input.GetButtonDown("A_1"))
 		{
 			var arr = dictionary.ToArray();
 			Debug.Log(arr[0]);
 		}
 			
 		//IEnumerable foreach.
-		if (Input.GetKeyDown(KeyCode.Alpha2))
+		if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown("B_1"))
 		{
 			var pairs = new KeyValuePair<int, float>[dictionary.Count];
 			int i = 0;

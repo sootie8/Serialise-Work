@@ -9,7 +9,7 @@ PluginImporter:
   isPreloaded: 0
   platformData:
     Android:
-      enabled: 0
+      enabled: 1
       settings:
         CPU: AnyCPU
     Any:
@@ -45,13 +45,13 @@ PluginImporter:
       enabled: 1
       settings: {}
     Web:
-      enabled: 0
+      enabled: 1
       settings: {}
     WebGL:
       enabled: 1
       settings: {}
     WebStreamed:
-      enabled: 0
+      enabled: 1
       settings: {}
     Win:
       enabled: 0
@@ -69,9 +69,6 @@ PluginImporter:
         PlaceholderPath: Assets/JsonDotNet/Assemblies/Standalone/Newtonsoft.Json.dll
         SDK: AnySDK
         ScriptingBackend: Il2Cpp
-    XboxOne:
-      enabled: 1
-      settings: {}
     iOS:
       enabled: 1
       settings:

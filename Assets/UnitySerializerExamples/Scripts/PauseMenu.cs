@@ -36,8 +36,6 @@ public class PauseMenu : MonoBehaviour
     }
 
     private void Start() {
-        Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
-
         if (pausedGUI)
             pausedGUI.enabled = false;
     }
@@ -51,7 +49,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     private void Update() {
-        if (Input.GetKeyUp(KeyCode.P)) {
+  /*      if (Input.GetKeyUp(KeyCode.P)) {
             paused = !paused;
 
             if (paused) {
@@ -102,7 +100,7 @@ public class PauseMenu : MonoBehaviour
                 Load(sg);
                 break;
             }
-        }
+        }*/
     }
 
 	public void Load()

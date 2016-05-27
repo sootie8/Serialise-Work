@@ -96,7 +96,7 @@ namespace UnitySerializerNG.FilePreferences {
 
                 try 
 				{
-					formatter.Serialize(stream, dict);
+					formatter.Serialize(stream, dict.ToArray());
                 }
                 catch (SerializationException e) {
                     Debug.LogException(e);

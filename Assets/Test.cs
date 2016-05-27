@@ -14,15 +14,14 @@ public class Test : MonoBehaviour {
 
 	private SomeStruct someStruct;
 
-	private Dictionary<int, float> dictionary;
+	private Dictionary<string, object> dictionary = new Dictionary<string, object>();
 
 	public void OnEnable()
 	{
 		someClass = new SomeClass(1f);
 		someStruct = new SomeStruct(1f);
-		dictionary = new Dictionary<int, float>();
-		dictionary.Add(1, 2f);
-		dictionary.Add(3, 4f);
+		dictionary.Add("hello", 2f);
+		dictionary.Add("goodbye", 4f);
 	}
 	// Update is called once per frame
 	void Update () 
@@ -41,14 +40,7 @@ public class Test : MonoBehaviour {
 		//IEnumerable foreach.
 		if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown("B_1"))
 		{
-			var pairs = new KeyValuePair<int, float>[dictionary.Count];
-			int i = 0;
-			foreach (var keypair in dictionary)
-			{
-				pairs[i] = keypair;
-				i++;
-			}
-			Debug.Log(pairs[0]);
+			Debug.Log(dictionary.ToArray()[0].Value);
 		}
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Y_1"))
         {

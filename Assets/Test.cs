@@ -14,13 +14,17 @@ public class Test : MonoBehaviour {
 
 	private SomeStruct someStruct;
 
+	private SomeOtherClass someotherClass = new SomeOtherClass();
+
+	private static SomeOtherClass someOtherClass2 = new SomeOtherClass();
+
 	private Dictionary<string, object> dictionary = new Dictionary<string, object>();
 
 	public void OnEnable()
 	{
 		someClass = new SomeClass(1f);
 		someStruct = new SomeStruct(1f);
-		dictionary.Add("hello", 2f);
+		dictionary.Add("hello", 1f);
 		dictionary.Add("goodbye", 4f);
 	}
 	// Update is called once per frame
@@ -41,14 +45,14 @@ public class Test : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown("B_1"))
 		{
 			Debug.Log(dictionary.ToArray()[0].Value);
+
+
 		}
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Y_1"))
         {
-			var keyValuePairs = new KeyValuePair<int, float>[2]{new KeyValuePair<int, float>(1, 2f), new KeyValuePair<int, float>(3, 4f)};
-			var stream = new MemoryStream(); 
-			var formatter = new BinaryFormatter();
-			formatter.Serialize(stream, keyValuePairs);
-			Debug.Log(stream.Length);
+			Debug.Log(someotherClass.dictionary.ToArray()[0].Value);
+
+			Debug.Log(someOtherClass2.dictionary.ToArray()[0].Value);
 		}
 
 		if (Input.GetKeyDown(KeyCode.Y))
@@ -82,6 +86,16 @@ public class Test : MonoBehaviour {
 		public SomeStruct(float someValue)
 		{
 			SomeValue = someValue;
+		}
+	}
+
+	public class SomeOtherClass
+	{
+		public Dictionary<string, object> dictionary = new Dictionary<string, object>();
+
+		public SomeOtherClass()
+		{
+			dictionary.Add("hello", 2f);
 		}
 	}
 }

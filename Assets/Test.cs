@@ -53,6 +53,8 @@ public class Test : MonoBehaviour {
 				keyPairs[i] = pair;
 				i++;
 			}
+
+			Debug.Log(keyPairs[0].Value);
 		}
 
 		if (Input.GetKeyDown(KeyCode.Y))

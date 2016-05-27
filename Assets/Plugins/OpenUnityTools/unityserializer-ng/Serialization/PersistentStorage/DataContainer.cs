@@ -37,21 +37,25 @@ namespace UnitySerializerNG.FilePreferences {
 
                 try {
 					var raw = formatter.Deserialize(stream);
-					if (raw.GetType() == typeof(Dictionary<string, object>))
+					if (raw is Dictionary<string, object>)
 					{
 						dict = raw as Dictionary<string, object>;
 					}
-					else 
+					else if (raw is KeyValuePair<string, object>[])
 					{
-						Debug.Log(raw.GetType());
-						dict = new Dictionary<string, object>();
+						dict = (raw as KeyValuePair<string, object>[]).ToDictionary(x => x.Key, y => y.Value);
+					}
+					else
+					{
+						Debug.LogError("Error, Save File isn't a supported Type: " + raw.GetType().FullName);
 					}
                 }
-                catch (SerializationException e) {
-                    Debug.LogError(e);
-                    stream.Close();
-                    RebuildFile();
-                }
+				catch (System.Exception e)
+				{
+					Debug.Log(e);
+					stream.Close();
+					RebuildFile();
+				}
                 finally {
                     stream.Close();
                 }
@@ -75,8 +79,9 @@ namespace UnitySerializerNG.FilePreferences {
             IFormatter formatter = new BinaryFormatter();
             Stream stream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write, FileShare.None);
 
-            try {
-                formatter.Serialize(stream, dict);
+            try
+			{
+				formatter.Serialize(stream, DictToArray(dict));
             }
             catch (SerializationException e) {
                 Debug.LogException(e);

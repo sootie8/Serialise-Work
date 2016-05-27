@@ -16,10 +16,11 @@ public class Test : MonoBehaviour {
 
 	private Dictionary<int, float> dictionary;
 
-	private SomeGenericClass<string> generic = new SomeGenericClass<string>();
+	private SomeGenericClass<string> generic;
 
 	public void OnEnable()
 	{
+		generic = new SomeGenericClass<string>();
 		someClass = new SomeClass(1f);
 		someStruct = new SomeStruct(1f);
 		dictionary = new Dictionary<int, float>();

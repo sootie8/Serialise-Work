@@ -23,9 +23,11 @@ namespace UnitySerializerNG.FilePreferences {
         private string profileName;
         private string path;
 
-        private Dictionary<string, T> dict = new Dictionary<string, T>();
+		private Dictionary<string, T> dict;
 
         public DataContainer(string filename, string profile = "default") {
+
+			dict = new Dictionary<string, T>();
             this.profileName = profile;
             path = root + Path.DirectorySeparatorChar + profile + Path.DirectorySeparatorChar + filename;
 

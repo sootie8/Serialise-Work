@@ -5,6 +5,9 @@ using System.Collections.Generic;
 using System.Xml.Serialization;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Collections.Generic;
+using System.Linq;
+using Newtonsoft.Json;
 
 using UnityEngine;
 
@@ -81,7 +84,9 @@ namespace UnitySerializerNG.FilePreferences {
                 Stream stream = new FileStream(path, FileMode.Create, FileAccess.Write, FileShare.None);
 
                 try {
-                    formatter.Serialize(stream, dict);
+                    //formatter.Serialize(stream, dict.ToList());
+					string json = JsonConvert.SerializeObject(dict);
+					formatter.Serialize(stream, json);
                 }
                 catch (SerializationException e) {
                     Debug.LogException(e);

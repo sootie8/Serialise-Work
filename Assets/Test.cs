@@ -45,9 +45,8 @@ public class Test : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown("B_1"))
 		{
 			Debug.Log(dictionary.ToArray()[0].Value);
-
-
 		}
+
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Y_1"))
         {
 			Debug.Log(someotherClass.dictionary.ToArray()[0].Value);

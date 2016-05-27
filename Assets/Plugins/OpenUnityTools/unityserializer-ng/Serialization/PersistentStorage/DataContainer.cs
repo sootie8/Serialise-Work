@@ -96,7 +96,7 @@ namespace UnitySerializerNG.FilePreferences {
 
                 try 
 				{
-					formatter.Serialize(stream, dict.ToArray());
+					formatter.Serialize(stream, DictToArray(dict));
                 }
                 catch (SerializationException e) {
                     Debug.LogException(e);
@@ -113,6 +113,19 @@ namespace UnitySerializerNG.FilePreferences {
                 Save();
             }
         }
+
+		private KeyValuePair<string, object>[] DictToArray(Dictionary<string, object> dictionary)
+		{
+			var keyPairs = new KeyValuePair<string, object>[dictionary.Count];
+			int i = 0;
+
+			foreach (var pair in dictionary)
+			{
+				keyPairs[i] = pair;
+				i++;
+			}
+			return keyPairs;
+		}
 
         public object Get(string key) {
             try {

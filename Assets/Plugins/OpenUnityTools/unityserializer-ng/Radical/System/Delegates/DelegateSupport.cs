@@ -259,7 +259,7 @@ public static class DelegateSupport
 			}
 			else
 			{
-				UnityEngine.Debug.Log(target);
+				//UnityEngine.Debug.Log(target);
 				return null;
 			}
 		}

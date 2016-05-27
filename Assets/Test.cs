@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 public class Test : MonoBehaviour {
 
@@ -31,6 +31,8 @@ public class Test : MonoBehaviour {
 		if (Input.GetKeyDown(KeyCode.Y))
 		{
 			Debug.Log(curve.keys[0] is System.ValueType);
+			var d = new Dictionary<int, float>();
+			d.DictToList();
 		}
 	}
 

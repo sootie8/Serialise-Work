@@ -35,23 +35,24 @@ public class Test : MonoBehaviour {
         {
 			Debug.Log(typeof(SomeClass).GetProperty("SomeValue").GetValue(someClass, null));
 		}
+		*/
 
-		if (Input.GetKeyDown(KeyCode.P) || Input.GetButtonDown("B_1"))
-        {
-			Debug.Log(typeof(SomeStruct).GetProperty("SomeValue").GetValue(someStruct, null));
-		}
-        */
 		//IEnumerable foreach.
 		if (Input.GetKeyDown(KeyCode.Alpha2) || Input.GetButtonDown("B_1"))
 		{
-			Debug.Log(dictionary.ToArray()[0].Value);
+			
 		}
 
         if (Input.GetKeyDown(KeyCode.Q) || Input.GetButtonDown("Y_1"))
         {
-			Debug.Log(someotherClass.dictionary.ToArray()[0].Value);
+			var keyPairs = new KeyValuePair<string, object>[dictionary.Count];
+			int i = 0;
 
-			Debug.Log(someOtherClass2.dictionary.ToArray()[0].Value);
+			foreach (var pair in dictionary)
+			{
+				keyPairs[i] = pair;
+				i++;
+			}
 		}
 
 		if (Input.GetKeyDown(KeyCode.Y))

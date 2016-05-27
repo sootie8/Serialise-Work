@@ -1,5 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System.Xml.Serialization;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 
 public class Test : MonoBehaviour {
 
@@ -30,9 +34,11 @@ public class Test : MonoBehaviour {
 
 		if (Input.GetKeyDown(KeyCode.Y))
 		{
-			Debug.Log(curve.keys[0] is System.ValueType);
-			var d = new Dictionary<int, float>();
-			d.DictToList();
+			var keyValuePairs = new KeyValuePair<int, float>[2]{new KeyValuePair<int, float>(1, 2f), new KeyValuePair<int, float>(3, 4f)};
+			var stream = new MemoryStream(); 
+			var formatter = new BinaryFormatter();
+			formatter.Serialize(stream, keyValuePairs);
+			Debug.Log(stream.Length);
 		}
 	}
 

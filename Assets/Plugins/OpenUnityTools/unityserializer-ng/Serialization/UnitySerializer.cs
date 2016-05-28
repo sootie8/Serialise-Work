@@ -650,7 +650,7 @@ namespace Serialization {
             ScanAllTypesForAttribute(function, assembly, null);
         }
 
-        internal static void ScanAllTypesForAttribute(ScanTypeFunction function, Assembly assembly, Type attribute) {
+        public static void ScanAllTypesForAttribute(ScanTypeFunction function, Assembly assembly, Type attribute) {
             try {
                 foreach (var tp in assembly.GetTypes()) {
                     if (attribute != null) {
@@ -2703,7 +2703,7 @@ namespace Serialization {
 
         #region Nested type: ScanTypeFunction
 
-        internal delegate void ScanTypeFunction(Type type, Attribute attribute);
+        public delegate void ScanTypeFunction(Type type, Attribute attribute);
 
         #endregion
 

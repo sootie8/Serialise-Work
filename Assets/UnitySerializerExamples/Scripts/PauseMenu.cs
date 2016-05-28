@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using System;
+using System.Reflection;
+using Serialization;
 
 public class PauseMenu : MonoBehaviour
 {
@@ -38,7 +40,7 @@ public class PauseMenu : MonoBehaviour
     private void Start() {
 
         Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
-		Serialization.UnitySerializer.AddPrivateType(typeof(AnimationClip));
+		//Serialization.UnitySerializer.AddPrivateType(typeof(AnimationClip));
         if (pausedGUI)
             pausedGUI.enabled = false;
     }
@@ -86,6 +88,28 @@ public class PauseMenu : MonoBehaviour
                 break;
             }
         }
+
+		if (Input.GetButtonDown("B_1") || Input.GetKeyDown(KeyCode.Alpha6))
+		{
+			foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) 
+			{
+				try
+				{
+					
+					UnitySerializer.ScanAllTypesForAttribute((tp, attr) =>
+						LevelSerializer.createdPlugins.Add(Activator.CreateInstance(tp)), asm, typeof(SerializerPlugIn));
+
+					UnitySerializer.ScanAllTypesForAttribute((tp, attr) => 
+						{
+							LevelSerializer.CustomSerializers[((ComponentSerializerFor)attr).SerializesType] = Activator.CreateInstance(tp) as IComponentSerializer;
+						}, asm, typeof(ComponentSerializerFor));
+				}
+				catch (System.Exception e)
+				{
+					Debug.Log(e);
+				}
+			}
+		}
     }
 
 	public void Load()

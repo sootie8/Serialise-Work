@@ -103,7 +103,7 @@ public static class LevelSerializer {
     /// </summary>
     public static HashSet<string> IgnoreTypes = new HashSet<string>();
 
-    internal static Dictionary<Type, IComponentSerializer> CustomSerializers =
+    public static Dictionary<Type, IComponentSerializer> CustomSerializers =
         new Dictionary<Type, IComponentSerializer>();
 
     internal static int lastFrame;
@@ -140,7 +140,7 @@ public static class LevelSerializer {
     /// Indicates whether the system is deserializing a level
     /// </summary>
     public static bool IsDeserializing;
-    private static readonly List<object> createdPlugins = new List<object>();
+    public static readonly List<object> createdPlugins = new List<object>();
     /// <summary>
     /// Should the system use compression
     /// </summary>
@@ -398,19 +398,20 @@ public static class LevelSerializer {
 
 	        //UnitySerializer.AddPrivateType(typeof(AnimationClip));
 
-		return; //a
 
-	        //Other initialization
-	        foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
+
+/*	        //Other initialization
+	        foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) 
+			{
 	            UnitySerializer.ScanAllTypesForAttribute((tp, attr) =>
 	                createdPlugins.Add(Activator.CreateInstance(tp)), asm, typeof(SerializerPlugIn));
 
-	            UnitySerializer.ScanAllTypesForAttribute((tp, attr) => {
+	            UnitySerializer.ScanAllTypesForAttribute((tp, attr) => 
+				{
 	                CustomSerializers[((ComponentSerializerFor)attr).SerializesType] = Activator.CreateInstance(tp) as IComponentSerializer;
 	            }, asm, typeof(ComponentSerializerFor));
-	        }
-
-		return;//001
+	        }*/
+			
 			
 	        AllPrefabs = Resources.FindObjectsOfTypeAll(typeof(GameObject)).Cast<GameObject>()
 	                .Where(go => {

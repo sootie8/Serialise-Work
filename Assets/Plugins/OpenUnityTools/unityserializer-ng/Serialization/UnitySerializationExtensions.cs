@@ -1748,13 +1748,17 @@ public class SerializeCamera : IComponentSerializer {
         return UnitySerializer.Serialize(cd);
     }
 
-    public void Deserialize(byte[] data, Component instance) {
+    public void Deserialize(byte[] data, Component instance) 
+	{
         var cd = UnitySerializer.Deserialize<CameraData>(data);
+		Debug.Log("Used Camera Deserializer");
         var camera = (Camera)instance;
+		camera.farClipPlane = cd.farClipPlane;
         camera.renderingPath = cd.renderingPath;
         camera.fieldOfView = cd.fieldOfView;
         camera.nearClipPlane = cd.nearClipPlane;
         camera.farClipPlane = cd.farClipPlane;
+
         camera.depth = cd.depth;
         camera.rect = cd.rect;
         camera.useOcclusionCulling = cd.useOcclusionCulling;

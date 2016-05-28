@@ -9,11 +9,11 @@ using UnitySerializerNG.FilePreferences;
 public static class FilePrefs {
     private static GameObject QuitObject;
 
-	private static DataContainer stringData = new DataContainer("str");
+	private static DataContainer<string> stringData = new DataContainer<string>("str");
 
-	private static DataContainer floatData = new DataContainer("fpn");
+	private static DataContainer<float> floatData = new DataContainer<float>("fpn");
 
-	private static DataContainer intData = new DataContainer("int");
+	private static DataContainer<int> intData = new DataContainer<int>("int");
 
     public static void DeleteAll() {
         stringData.Clear();

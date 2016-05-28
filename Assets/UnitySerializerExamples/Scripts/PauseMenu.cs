@@ -45,26 +45,6 @@ public class PauseMenu : MonoBehaviour
         if (pausedGUI)
             pausedGUI.enabled = false;
 
-
-		try {
-			var stored = FilePrefs.GetString("_Save_Game_Data_");
-			if (!string.IsNullOrEmpty(stored)) {
-				try {
-					LevelSerializer.SavedGames = UnitySerializer.Deserialize<Lookup<string, List<LevelSerializer.SaveEntry>>>(Convert.FromBase64String(stored));
-				}
-				catch {
-					LevelSerializer.SavedGames = null;
-				}
-			}
-			if (LevelSerializer.SavedGames == null) {
-				LevelSerializer.SavedGames = new Index<string, List<LevelSerializer.SaveEntry>>();
-				LevelSerializer.SaveDataToFilePrefs();
-			}
-		}
-		catch (System.Exception e) {
-			LevelSerializer.SavedGames = new Index<string, List<LevelSerializer.SaveEntry>>();
-			Debug.Log(e);
-		}
     }
 
     private void OnEnable() {
@@ -113,6 +93,26 @@ public class PauseMenu : MonoBehaviour
 
 		if (Input.GetButtonDown("B_1") || Input.GetKeyDown(KeyCode.Alpha6))
 		{
+			try {
+				var stored = FilePrefs.GetString("_Save_Game_Data_");
+				if (!string.IsNullOrEmpty(stored)) {
+					try {
+						LevelSerializer.SavedGames = UnitySerializer.Deserialize<Lookup<string, List<LevelSerializer.SaveEntry>>>(Convert.FromBase64String(stored));
+					}
+					catch {
+						LevelSerializer.SavedGames = null;
+					}
+				}
+				if (LevelSerializer.SavedGames == null) {
+					LevelSerializer.SavedGames = new Index<string, List<LevelSerializer.SaveEntry>>();
+					LevelSerializer.SaveDataToFilePrefs();
+				}
+			}
+			catch (System.Exception e) {
+				LevelSerializer.SavedGames = new Index<string, List<LevelSerializer.SaveEntry>>();
+				Debug.Log(e);
+			}
+
 			foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) 
 			{
 				try

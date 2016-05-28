@@ -2298,6 +2298,7 @@ namespace Serialization {
                 });
 				Debug.Log(string.Format("ItemType is {0}", itemType));
                 var value = DeserializeObject(entry, storage);
+				Debug.Log("2031");
 #if US_LOGGING
                 if (Radical.IsLogging()) {
                     Radical.Log(string.Format("Field {0} : {1}", entry.Name, value == null ? "null" : value.GetType().FullName));

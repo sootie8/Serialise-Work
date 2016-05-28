@@ -423,7 +423,7 @@ public static class LevelSerializer {
 
 		return; //002
 
-	        try {
+	        /*try {
 	            var stored = FilePrefs.GetString("_Save_Game_Data_");
 	            if (!string.IsNullOrEmpty(stored)) {
 	                try {
@@ -440,7 +440,7 @@ public static class LevelSerializer {
 	        }
 	        catch {
 	            SavedGames = new Index<string, List<SaveEntry>>();
-	        }
+	        }*/
 			
 	    }
 

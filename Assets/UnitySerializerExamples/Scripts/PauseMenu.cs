@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System;
 using System.Reflection;
+using System.Collections.Generic;
 using Serialization;
 
 public class PauseMenu : MonoBehaviour
@@ -43,6 +44,26 @@ public class PauseMenu : MonoBehaviour
 		//Serialization.UnitySerializer.AddPrivateType(typeof(AnimationClip));
         if (pausedGUI)
             pausedGUI.enabled = false;
+
+
+		try {
+			var stored = FilePrefs.GetString("_Save_Game_Data_");
+			if (!string.IsNullOrEmpty(stored)) {
+				try {
+					LevelSerializer.SavedGames = UnitySerializer.Deserialize<Lookup<string, List<LevelSerializer.SaveEntry>>>(Convert.FromBase64String(stored));
+				}
+				catch {
+					LevelSerializer.SavedGames = null;
+				}
+			}
+			if (LevelSerializer.SavedGames == null) {
+				LevelSerializer.SavedGames = new Index<string, List<LevelSerializer.SaveEntry>>();
+				LevelSerializer.SaveDataToFilePrefs();
+			}
+		}
+		catch {
+			LevelSerializer.SavedGames = new Index<string, List<LevelSerializer.SaveEntry>>();
+		}
     }
 
     private void OnEnable() {
@@ -95,7 +116,6 @@ public class PauseMenu : MonoBehaviour
 			{
 				try
 				{
-					
 					UnitySerializer.ScanAllTypesForAttribute((tp, attr) =>
 						LevelSerializer.createdPlugins.Add(Activator.CreateInstance(tp)), asm, typeof(SerializerPlugIn));
 

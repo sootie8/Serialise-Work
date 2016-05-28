@@ -1791,7 +1791,8 @@ namespace Serialization {
                 //this is normally only tr
                 if (entry.Value == null) {
                     //Check for custom serialization
-                    if (Serializers.ContainsKey(itemType)) {
+                    if (Serializers.ContainsKey(itemType)) 
+					{
                         //Read the serializer and its data
                         var serializer = Serializers[itemType];
                         var nentry = new Entry {
@@ -1800,7 +1801,9 @@ namespace Serialization {
                         };
                         storage.BeginReadProperty(nentry);
                         object[] data = null;
-                        using (new SerializationSplitScope()) {
+
+                        using (new SerializationSplitScope()) 
+						{
                             data =
                                 (object[])
                                 DeserializeObject(nentry, storage);
@@ -1900,6 +1903,11 @@ namespace Serialization {
                 }
                 return result2;
             }
+			catch (System.Exception e)
+			{
+				Debug.Log(e);
+				return null;
+			}
             finally {
 #if US_LOGGING
                 if (Radical.IsLogging()) {
@@ -1941,6 +1949,7 @@ namespace Serialization {
                     };
                     var value = storage.BeginReadObjectArrayItem(l, entry);
                     value = value ?? DeserializeObject(entry, storage);
+					Debug.Log(string.Format("Item Type is {0}", itemType.FullName));
                     if (value != null && value.GetType().IsDefined(typeof(DeferredAttribute), true)) {
                         var toSet = value;
                         value = new DeferredSetter(d => toSet);
@@ -2050,6 +2059,7 @@ namespace Serialization {
                 var entry = new Entry() {
                     StoredType = keyType
                 };
+				Debug.Log(string.Format("2061 Item Type is {0}", itemType));
                 var value = storage.BeginReadDictionaryKeyItem(i, entry) ??
                     DeserializeObject(entry, storage);
                 if (value.GetType().IsDefined(typeof(DeferredAttribute), true)) {
@@ -2080,6 +2090,7 @@ namespace Serialization {
                 var entry = new Entry() {
                     StoredType = valueType
                 };
+				Debug.Log(string.Format("Item Type is {0}", itemType));
                 var value = storage.BeginReadDictionaryValueItem(i, entry) ??
                     DeserializeObject(entry, storage);
                 if (value != null && value.GetType().IsDefined(typeof(DeferredAttribute), true) || list[i] == null) {
@@ -2132,6 +2143,7 @@ namespace Serialization {
                 var entry = new Entry() {
                     StoredType = valueType,
                 };
+				Debug.Log(string.Format("Item Type is {0}", itemType));
                 var value = storage.BeginReadListItem(i, entry) ??
                      DeserializeObject(entry, storage);
                 if (value != null && value.GetType().IsDefined(typeof(DeferredAttribute), true)) {
@@ -2210,6 +2222,8 @@ namespace Serialization {
                     OwningType = itemType,
                     MustHaveName = true
                 });
+
+				Debug.Log(string.Format("ItemType is {0}", itemType));
                 var value = DeserializeObject(entry, storage);
 #if US_LOGGING
                 if (Radical.IsLogging()) {
@@ -2282,6 +2296,7 @@ namespace Serialization {
                     OwningType = itemType,
                     MustHaveName = true
                 });
+				Debug.Log(string.Format("ItemType is {0}", itemType));
                 var value = DeserializeObject(entry, storage);
 #if US_LOGGING
                 if (Radical.IsLogging()) {

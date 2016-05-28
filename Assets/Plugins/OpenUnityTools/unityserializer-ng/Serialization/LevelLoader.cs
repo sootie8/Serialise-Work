@@ -486,10 +486,12 @@ public class LevelLoader : MonoBehaviour {
                                         if (LevelSerializer.CustomSerializers.ContainsKey(type)) {
                                             LevelSerializer.CustomSerializers[type].Deserialize(cp.List[i].Data, list[i]);
                                         }
-                                        else {
+                                        else 
+										{
                                             UnitySerializer.DeserializeInto(cp.List[i].Data, list[i]);
                                         }
                                         LoadedComponent(list[i]);
+
                                     }
                                 }
 #if US_LOGGING
@@ -739,7 +741,9 @@ public class LevelLoader : MonoBehaviour {
                 else {
                     UnitySerializer.DeserializeInto(global_compList[i].Data, nlist[i]);
                 }
+				Debug.Log("here");
                 LoadedComponent(nlist[i]);
+				Debug.Log(LoadedComponent.Target);
             }
         }
         //);

@@ -5,9 +5,9 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/UnitySerializerExamples/Example.unity
   - enabled: 1
+    path: Assets/UnitySerializerExamples/Example.unity
+  - enabled: 0
     path: Assets/UnitySerializerExamples/Test.unity
   - enabled: 0
     path: Assets/UnitySerializerExamples/Dummy.unity

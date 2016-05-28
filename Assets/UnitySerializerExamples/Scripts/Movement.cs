@@ -12,17 +12,17 @@ public class Movement : MonoBehaviour {
     }
 
     private void Update() {
-        /*
-        forward = getcomponent<transform>().forward;
-        right = new vector3(forward.z, 0.0f, -forward.x);
+        
+        forward = GetComponent<Transform>().forward;
+        right = new Vector3(forward.z, 0.0f, -forward.x);
 
-        float horizontalinput = input.getaxisraw("horizontal");
-        float verticalinput = input.getaxisraw("vertical");
-        vector3 targetdirection = horizontalinput * right + verticalinput * forward;
+        float horizontalinput = Input.GetAxisRaw("L_XAxis_1");
+        float verticalinput = -Input.GetAxisRaw("L_YAxis_1");
+        Vector3 targetdirection = horizontalinput * right + verticalinput * forward;
 
-        movedirection = vector3.rotatetowards(movedirection, targetdirection, 200.0f * mathf.deg2rad * time.deltatime, 1000.0f);
+        moveDirection = Vector3.RotateTowards(moveDirection, targetdirection, 200.0f * Mathf.Deg2Rad * Time.deltaTime, 1000.0f);
 
-        vector3 movement = movedirection * time.deltatime * 10.0f;
-        controller.move(movement);*/
+        Vector3 movement = moveDirection * Time.deltaTime * 10.0f;
+        controller.Move(movement);
     }
 }

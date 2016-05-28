@@ -393,8 +393,10 @@ public static class LevelSerializer {
 
 	        webClient.UploadDataCompleted += HandleWebClientUploadDataCompleted;
 	        webClient.UploadStringCompleted += HandleWebClientUploadStringCompleted;
+		return; //a
 	        //Basic plug in configuration and special cases
 	        _stopCases.Add(typeof(PrefabIdentifier));
+		return; //b 
 	        UnitySerializer.AddPrivateType(typeof(AnimationClip));
 
 			return; //001

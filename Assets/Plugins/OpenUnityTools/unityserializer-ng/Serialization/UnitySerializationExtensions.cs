@@ -140,7 +140,7 @@ public class SerializeBounds : SerializerExtensionBase<Bounds> {
     }
 }
 
-[Serializer(typeof(Rect))]
+/*[Serializer(typeof(Rect))]
 public class SerializeRect : SerializerExtensionBase<Rect> {
 	public override IEnumerable<object> Save(Rect target) 
 	{
@@ -151,7 +151,7 @@ public class SerializeRect : SerializerExtensionBase<Rect> {
 	{
 		return new Rect((float) data[0], (float) data[1], (float) data[2], (float) data[3]);
 	}
-}
+}*/
 
 public abstract class ComponentSerializerExtensionBase<T> : IComponentSerializer where T : Component {
     public abstract IEnumerable<object> Save(T target);
@@ -1737,7 +1737,7 @@ public class SerializeCamera : IComponentSerializer {
             depth = camera.depth,
             nearClipPlane = camera.nearClipPlane,
             farClipPlane = camera.farClipPlane,
-            rect = camera.rect,
+            //rect = camera.rect,
             useOcclusionCulling = camera.useOcclusionCulling,
             hdr = camera.hdr,
             targetTexture = camera.targetTexture,
@@ -1751,7 +1751,6 @@ public class SerializeCamera : IComponentSerializer {
     public void Deserialize(byte[] data, Component instance) 
 	{
         var cd = UnitySerializer.Deserialize<CameraData>(data);
-		Debug.Log("Used Camera Deserializer");
         var camera = (Camera)instance;
 		camera.farClipPlane = cd.farClipPlane;
         camera.renderingPath = cd.renderingPath;
@@ -1760,7 +1759,7 @@ public class SerializeCamera : IComponentSerializer {
         camera.farClipPlane = cd.farClipPlane;
 
         camera.depth = cd.depth;
-        camera.rect = cd.rect;
+        //camera.rect = cd.rect;
         camera.useOcclusionCulling = cd.useOcclusionCulling;
         camera.hdr = cd.hdr;
         camera.targetTexture = cd.targetTexture;

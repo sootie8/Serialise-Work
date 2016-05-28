@@ -24,11 +24,10 @@ namespace UnitySerializerNG.FilePreferences {
         private string profileName;
         private string path;
 
-		private Dictionary<string, T> dict = new Dictionary<string, T>();
+		private Dictionary<string, object> dict = new Dictionary<string, object>();
 
         public DataContainer(string filename, string profile = "default") {
 
-			Debug.Log(root);
             this.profileName = profile;
             path = root + Path.DirectorySeparatorChar + profile + Path.DirectorySeparatorChar + filename;
 
@@ -38,16 +37,16 @@ namespace UnitySerializerNG.FilePreferences {
 
                 try {
 					var raw = formatter.Deserialize(stream);
-					if (raw is KeyValuePair<string, T>[])
+					if (raw is KeyValuePair<string, object>[])
 					{
-						dict = (raw as KeyValuePair<string, T>[]).ToDictionary(x => x.Key, y => y.Value);
+						dict = (raw as KeyValuePair<string, object>[]).ToDictionary(x => x.Key, y => y.Value);
 					}
 					else if (raw is IDictionary)
 					{
 						var rawDict = (raw as IDictionary);
 						object[] array = new object[rawDict.Count];
 						rawDict.CopyTo(array, 0);
-						dict = array.Select(x => (KeyValuePair<string, T>) x).ToDictionary(x => x.Key, y => y.Value);
+						dict = array.Select(x => (KeyValuePair<string, T>) x).Select(x => new KeyValuePair<string, object>(x.Key, x.Value)).ToDictionary(x => x.Key, y => y.Value);
 					}
 					else
 					{
@@ -123,9 +122,9 @@ namespace UnitySerializerNG.FilePreferences {
             }
         }
 
-		private KeyValuePair<string, T>[] DictToArray(Dictionary<string, T> dictionary)
+		private KeyValuePair<string, object>[] DictToArray(Dictionary<string, object> dictionary)
 		{
-			var keyPairs = new KeyValuePair<string, T>[dictionary.Count];
+			var keyPairs = new KeyValuePair<string, object>[dictionary.Count];
 			int i = 0;
 
 			foreach (var pair in dictionary)

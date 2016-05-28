@@ -38,7 +38,7 @@ public class PauseMenu : MonoBehaviour
     private void Start() {
 
         Environment.SetEnvironmentVariable("MONO_REFLECTION_SERIALIZER", "yes");
-
+		Serialization.UnitySerializer.AddPrivateType(typeof(AnimationClip));
         if (pausedGUI)
             pausedGUI.enabled = false;
     }

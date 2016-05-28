@@ -388,64 +388,72 @@ public static class LevelSerializer {
 
     #endregion
 
-    static LevelSerializer() {
+    static LevelSerializer() 
+	{
+		try 
+		{
+	        webClient.UploadDataCompleted += HandleWebClientUploadDataCompleted;
+	        webClient.UploadStringCompleted += HandleWebClientUploadStringCompleted;
+	        //Basic plug in configuration and special cases
+	        _stopCases.Add(typeof(PrefabIdentifier));
+	        UnitySerializer.AddPrivateType(typeof(AnimationClip));
 
-        webClient.UploadDataCompleted += HandleWebClientUploadDataCompleted;
-        webClient.UploadStringCompleted += HandleWebClientUploadStringCompleted;
-        //Basic plug in configuration and special cases
-        _stopCases.Add(typeof(PrefabIdentifier));
-        UnitySerializer.AddPrivateType(typeof(AnimationClip));
+	        //Other initialization
+	        foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
+	            UnitySerializer.ScanAllTypesForAttribute((tp, attr) =>
+	                createdPlugins.Add(Activator.CreateInstance(tp)), asm, typeof(SerializerPlugIn));
 
-        //Other initialization
-        foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
-            UnitySerializer.ScanAllTypesForAttribute((tp, attr) =>
-                createdPlugins.Add(Activator.CreateInstance(tp)), asm, typeof(SerializerPlugIn));
-
-            UnitySerializer.ScanAllTypesForAttribute((tp, attr) => {
-                CustomSerializers[((ComponentSerializerFor)attr).SerializesType] = Activator.CreateInstance(tp) as IComponentSerializer;
-            }, asm, typeof(ComponentSerializerFor));
-        }
-
-
-        AllPrefabs = Resources.FindObjectsOfTypeAll(typeof(GameObject)).Cast<GameObject>()
-                .Where(go => {
-                    var pf = go.GetComponent<PrefabIdentifier>();
-                    return pf != null && !pf.IsInScene();
-                })
-                .Distinct(CompareGameObjects.Instance)
-                .ToDictionary(go => go.GetComponent<PrefabIdentifier>().ClassId, go => go);
+	            UnitySerializer.ScanAllTypesForAttribute((tp, attr) => {
+	                CustomSerializers[((ComponentSerializerFor)attr).SerializesType] = Activator.CreateInstance(tp) as IComponentSerializer;
+	            }, asm, typeof(ComponentSerializerFor));
+	        }
 
 
-        try {
-            var stored = FilePrefs.GetString("_Save_Game_Data_");
-            if (!string.IsNullOrEmpty(stored)) {
-                try {
-                    SavedGames = UnitySerializer.Deserialize<Lookup<string, List<SaveEntry>>>(Convert.FromBase64String(stored));
-                }
-                catch {
-                    SavedGames = null;
-                }
-            }
-            if (SavedGames == null) {
-                SavedGames = new Index<string, List<SaveEntry>>();
-                SaveDataToFilePrefs();
-            }
-        }
-        catch {
-            SavedGames = new Index<string, List<SaveEntry>>();
-        }
-    }
+	        AllPrefabs = Resources.FindObjectsOfTypeAll(typeof(GameObject)).Cast<GameObject>()
+	                .Where(go => {
+	                    var pf = go.GetComponent<PrefabIdentifier>();
+	                    return pf != null && !pf.IsInScene();
+	                })
+	                .Distinct(CompareGameObjects.Instance)
+	                .ToDictionary(go => go.GetComponent<PrefabIdentifier>().ClassId, go => go);
 
-    internal static Dictionary<string, GameObject> AllPrefabs {
-        get {
-            if (Time.frameCount != lastFrame) {
-                allPrefabs = allPrefabs.Where(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
-                lastFrame = Time.frameCount;
-            }
-            return allPrefabs;
-        }
-        set { allPrefabs = value; }
-    }
+
+	        try {
+	            var stored = FilePrefs.GetString("_Save_Game_Data_");
+	            if (!string.IsNullOrEmpty(stored)) {
+	                try {
+	                    SavedGames = UnitySerializer.Deserialize<Lookup<string, List<SaveEntry>>>(Convert.FromBase64String(stored));
+	                }
+	                catch {
+	                    SavedGames = null;
+	                }
+	            }
+	            if (SavedGames == null) {
+	                SavedGames = new Index<string, List<SaveEntry>>();
+	                SaveDataToFilePrefs();
+	            }
+	        }
+	        catch {
+	            SavedGames = new Index<string, List<SaveEntry>>();
+	        }
+		}
+		catch (System.Exception e)
+		{
+			Debug.Log(e);
+		}
+	    }
+
+
+	    internal static Dictionary<string, GameObject> AllPrefabs {
+	        get {
+	            if (Time.frameCount != lastFrame) {
+	                allPrefabs = allPrefabs.Where(p => p.Value).ToDictionary(p => p.Key, p => p.Value);
+	                lastFrame = Time.frameCount;
+	            }
+	            return allPrefabs;
+	        }
+	        set { allPrefabs = value; }
+		}
 
     /// <summary>
     /// Gets a value indicating whether this instance can resume (there is resume data)

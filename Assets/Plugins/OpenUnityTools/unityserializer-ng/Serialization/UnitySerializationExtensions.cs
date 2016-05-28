@@ -140,7 +140,7 @@ public class SerializeBounds : SerializerExtensionBase<Bounds> {
     }
 }
 
-/*[Serializer(typeof(Rect))]
+[Serializer(typeof(Rect))]
 public class SerializeRect : SerializerExtensionBase<Rect> {
 	public override IEnumerable<object> Save(Rect target) 
 	{
@@ -151,7 +151,7 @@ public class SerializeRect : SerializerExtensionBase<Rect> {
 	{
 		return new Rect((float) data[0], (float) data[1], (float) data[2], (float) data[3]);
 	}
-}*/
+}
 
 public abstract class ComponentSerializerExtensionBase<T> : IComponentSerializer where T : Component {
     public abstract IEnumerable<object> Save(T target);

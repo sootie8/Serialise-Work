@@ -859,10 +859,9 @@ MonoBehaviour:
   IsDeserializing: 0
   _id: a3a93d63-e0ac-47ed-b81e-0ffadef033e6
   classId: 63303562353134642d343834372d343737352d626530322d303831303439363939646139
-  StoreAllComponents: 0
+  StoreAllComponents: 1
   Components:
   - 556e697479456e67696e652e5472616e73666f726d
-  - UnityEngine.Transform
 --- !u!1 &1711183362
 GameObject:
   m_ObjectHideFlags: 0

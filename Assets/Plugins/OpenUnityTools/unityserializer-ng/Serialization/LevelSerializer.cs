@@ -398,7 +398,7 @@ public static class LevelSerializer {
 
 	        //UnitySerializer.AddPrivateType(typeof(AnimationClip));
 
-
+		return; //a
 
 	        //Other initialization
 	        foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {

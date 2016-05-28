@@ -1731,6 +1731,7 @@ public class SerializeCamera : IComponentSerializer {
     #region IComponentSerializer implementation
     public byte[] Serialize(Component component) {
         var camera = (Camera)component;
+		UnityEngine.Debug.Log("Using Camera Serializer Now");
         var cd = new CameraData {
             renderingPath = camera.actualRenderingPath,
             fieldOfView = camera.fieldOfView,

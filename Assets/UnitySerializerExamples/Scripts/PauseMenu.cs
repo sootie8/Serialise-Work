@@ -61,8 +61,9 @@ public class PauseMenu : MonoBehaviour
 				LevelSerializer.SaveDataToFilePrefs();
 			}
 		}
-		catch {
+		catch (System.Exception e) {
 			LevelSerializer.SavedGames = new Index<string, List<LevelSerializer.SaveEntry>>();
+			Debug.Log(e);
 		}
     }
 

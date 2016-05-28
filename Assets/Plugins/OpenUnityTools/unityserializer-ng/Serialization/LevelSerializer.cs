@@ -421,7 +421,6 @@ public static class LevelSerializer {
 	                .Distinct(CompareGameObjects.Instance)
 	                .ToDictionary(go => go.GetComponent<PrefabIdentifier>().ClassId, go => go);
 
-		return; //002
 
 	        /*try {
 	            var stored = FilePrefs.GetString("_Save_Game_Data_");

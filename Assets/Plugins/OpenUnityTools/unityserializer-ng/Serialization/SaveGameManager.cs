@@ -189,6 +189,9 @@ public class SaveGameManager : MonoBehaviour {
 
 
     private void Awake() {
+
+		LoadSavesAndSerializers();
+
         Loom.Initialize();
         if (Reference == null) {
             Reference = ScriptableObject.CreateInstance<StoredReferences>();
@@ -222,4 +225,45 @@ public class SaveGameManager : MonoBehaviour {
             _initActions.Clear();
         }
     }
+
+	private void LoadSavesAndSerializers()
+	{
+		try {
+			var stored = FilePrefs.GetString("_Save_Game_Data_");
+			if (!string.IsNullOrEmpty(stored)) {
+				try {
+					LevelSerializer.SavedGames = UnitySerializer.Deserialize<Lookup<string, List<LevelSerializer.SaveEntry>>>(Convert.FromBase64String(stored));
+				}
+				catch {
+					LevelSerializer.SavedGames = null;
+				}
+			}
+			if (LevelSerializer.SavedGames == null) {
+				LevelSerializer.SavedGames = new Index<string, List<LevelSerializer.SaveEntry>>();
+				LevelSerializer.SaveDataToFilePrefs();
+			}
+		}
+		catch (System.Exception e) {
+			LevelSerializer.SavedGames = new Index<string, List<LevelSerializer.SaveEntry>>();
+			Debug.Log(e);
+		}
+
+		foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) 
+		{
+			try
+			{
+				UnitySerializer.ScanAllTypesForAttribute((tp, attr) =>
+					LevelSerializer.createdPlugins.Add(Activator.CreateInstance(tp)), asm, typeof(SerializerPlugIn));
+
+				UnitySerializer.ScanAllTypesForAttribute((tp, attr) => 
+					{
+						LevelSerializer.CustomSerializers[((ComponentSerializerFor)attr).SerializesType] = Activator.CreateInstance(tp) as IComponentSerializer;
+					}, asm, typeof(ComponentSerializerFor));
+			}
+			catch (System.Exception e)
+			{
+				Debug.Log(e);
+			}
+		}
+	}
 }

@@ -10,6 +10,7 @@ using System.Collections.Generic;
 using System;
 using System.Linq;
 using Serialization;
+using System.Collections;
 
 [ExecuteInEditMode]
 [AddComponentMenu("Storage/Save Game Manager")]
@@ -190,7 +191,7 @@ public class SaveGameManager : MonoBehaviour {
 
     private void Awake() {
 
-		LoadSavesAndSerializers();
+		StartCoroutine(LoadSavesAndSerializers());
 
         Loom.Initialize();
         if (Reference == null) {
@@ -226,8 +227,9 @@ public class SaveGameManager : MonoBehaviour {
         }
     }
 
-	private void LoadSavesAndSerializers()
+	private IEnumerator LoadSavesAndSerializers()
 	{
+		yield return 0;
 		try {
 			var stored = FilePrefs.GetString("_Save_Game_Data_");
 			if (!string.IsNullOrEmpty(stored)) {

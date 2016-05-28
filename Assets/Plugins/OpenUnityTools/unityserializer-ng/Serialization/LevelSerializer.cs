@@ -409,6 +409,8 @@ public static class LevelSerializer {
 	                CustomSerializers[((ComponentSerializerFor)attr).SerializesType] = Activator.CreateInstance(tp) as IComponentSerializer;
 	            }, asm, typeof(ComponentSerializerFor));
 	        }
+
+		return;//001
 			
 	        AllPrefabs = Resources.FindObjectsOfTypeAll(typeof(GameObject)).Cast<GameObject>()
 	                .Where(go => {
@@ -417,6 +419,8 @@ public static class LevelSerializer {
 	                })
 	                .Distinct(CompareGameObjects.Instance)
 	                .ToDictionary(go => go.GetComponent<PrefabIdentifier>().ClassId, go => go);
+
+		return; //002
 
 	        try {
 	            var stored = FilePrefs.GetString("_Save_Game_Data_");
@@ -436,6 +440,7 @@ public static class LevelSerializer {
 	        catch {
 	            SavedGames = new Index<string, List<SaveEntry>>();
 	        }
+			
 	    }
 
 

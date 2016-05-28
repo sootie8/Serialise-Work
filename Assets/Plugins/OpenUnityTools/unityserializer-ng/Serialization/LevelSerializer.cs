@@ -389,7 +389,7 @@ public static class LevelSerializer {
     #endregion
 
     static LevelSerializer() {
-		return;
+
         webClient.UploadDataCompleted += HandleWebClientUploadDataCompleted;
         webClient.UploadStringCompleted += HandleWebClientUploadStringCompleted;
         //Basic plug in configuration and special cases

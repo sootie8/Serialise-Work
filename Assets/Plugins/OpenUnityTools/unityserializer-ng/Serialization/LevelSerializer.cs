@@ -390,13 +390,14 @@ public static class LevelSerializer {
 
     static LevelSerializer() 
 	{
-		try 
-		{
+
 	        webClient.UploadDataCompleted += HandleWebClientUploadDataCompleted;
 	        webClient.UploadStringCompleted += HandleWebClientUploadStringCompleted;
 	        //Basic plug in configuration and special cases
 	        _stopCases.Add(typeof(PrefabIdentifier));
 	        UnitySerializer.AddPrivateType(typeof(AnimationClip));
+
+			return; //001
 
 	        //Other initialization
 	        foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
@@ -408,7 +409,7 @@ public static class LevelSerializer {
 	            }, asm, typeof(ComponentSerializerFor));
 	        }
 
-
+			return; //0002
 	        AllPrefabs = Resources.FindObjectsOfTypeAll(typeof(GameObject)).Cast<GameObject>()
 	                .Where(go => {
 	                    var pf = go.GetComponent<PrefabIdentifier>();
@@ -417,7 +418,7 @@ public static class LevelSerializer {
 	                .Distinct(CompareGameObjects.Instance)
 	                .ToDictionary(go => go.GetComponent<PrefabIdentifier>().ClassId, go => go);
 
-
+			return; //003
 	        try {
 	            var stored = FilePrefs.GetString("_Save_Game_Data_");
 	            if (!string.IsNullOrEmpty(stored)) {
@@ -436,11 +437,7 @@ public static class LevelSerializer {
 	        catch {
 	            SavedGames = new Index<string, List<SaveEntry>>();
 	        }
-		}
-		catch (System.Exception e)
-		{
-			Debug.Log(e);
-		}
+			return; //004
 	    }
 
 

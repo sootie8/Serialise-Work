@@ -2164,14 +2164,8 @@ namespace Serialization {
 					Debug.Log("2163");
 					Debug.Log(o.GetType());
 					Debug.Log(o.Count);
-					try
-					{
-						o.Add(value);
-					}
-					catch (System.Exception e)
-					{
-						Debug.Log(e);
-					}
+					o.Add(value);
+					Debug.Log("After O.value");
                 }
 				Debug.Log("2166");
                 storage.EndReadListItem();

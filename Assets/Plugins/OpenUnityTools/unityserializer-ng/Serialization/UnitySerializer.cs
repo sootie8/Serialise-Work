@@ -2285,6 +2285,10 @@ namespace Serialization {
                     MustHaveName = true
                 });
 				Debug.Log(string.Format("Item Type is {0}", itemType));
+				if (itemType == typeof(AnimationCurve))
+				{
+					return;
+				}
                 var value = DeserializeObject(entry, storage);
 				Debug.Log(string.Format("Item Type after is {0}", itemType));
 #if US_LOGGING

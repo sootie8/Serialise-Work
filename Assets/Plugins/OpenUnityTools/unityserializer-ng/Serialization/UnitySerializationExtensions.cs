@@ -214,7 +214,10 @@ public class SerializeBoxCollider : ComponentSerializerExtensionBase<BoxCollider
         instance.size = new Vector3((float)data[1], (float)data[2], (float)data[3]);
         instance.center = new Vector3((float)data[4], (float)data[5], (float)data[6]);
         instance.enabled = (bool)data[7];
-        instance.sharedMaterial = (PhysicMaterial)data[8];
+		if (data.Length > 8)
+		{
+			instance.sharedMaterial = (PhysicMaterial)data[8];
+		}
     }
 }
 

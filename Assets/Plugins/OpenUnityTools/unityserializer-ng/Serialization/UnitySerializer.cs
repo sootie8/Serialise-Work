@@ -1888,15 +1888,14 @@ namespace Serialization {
                 if (obj is IList) {
                     DeserializeList(obj as IList, itemType, storage);
                 }
-				Debug.Log("1891");
+
                 //Otherwise we are serializing an object
                 result2 = DeserializeObjectAndProperties(obj, itemType, storage);
-				Debug.Log("1894");
                 storage.EndReadObject();
                 if (result2 is IDeserialized) {
                     DeserializedObject.Add(result2 as IDeserialized);
                 }
-				Debug.Log("1899");
+
                 //Check for null
                 if (obj is Nuller) {
                     return null;
@@ -2137,47 +2136,31 @@ namespace Serialization {
                 };
                 var value = storage.BeginReadListItem(i, entry) ??
                      DeserializeObject(entry, storage);
-				Debug.Log("2140");
                 if (value != null && value.GetType().IsDefined(typeof(DeferredAttribute), true)) {
                     var toSet = value;
                     value = new DeferredSetter(d => toSet);
                 }
-				Debug.Log("2145");
-			
-                if (value is DeferredSetter) 
-				{
-					Debug.Log("2148");
+
+                if (value is DeferredSetter) {
                     var st = value as DeferredSetter;
                     var nd = new DeferredSetter(st.deferredRetrievalFunction) { enabled = st.enabled };
-					Debug.Log("2151");
                     nd._setAction = () => {
                         if (o != null) {
                             o.Add(nd.deferredRetrievalFunction(st.parameters));
                         }
                     };
-					Debug.Log("2156");
                     AddFixup(nd);
-					Debug.Log("2158");
                 }
-                else 
-				{
-					Debug.Log("2163");
-					Debug.Log(o.GetType());
-					Debug.Log(o.Count);
-					o.Add(value);
-					Debug.Log("After O.value");
+                else {
+                    o.Add(value);
                 }
-				Debug.Log("2166");
                 storage.EndReadListItem();
-				Debug.Log("2168");
             }
-			Debug.Log("2170");
             if (currentVersion >= 7 && currentVersion < 9) {
                 DeserializeObjectAndProperties(o, itemType, storage);
             }
-			Debug.Log("2174");
+
             storage.EndReadList();
-			Debug.Log("2176");
             return o;
         }
 
@@ -2209,7 +2192,6 @@ namespace Serialization {
             }
             finally {
                 DeserializingObject = DeserializingStack.Pop();
-				Debug.Log("2198");
             }
         }
 
@@ -2295,20 +2277,20 @@ namespace Serialization {
         /// <param name="itemType"> The type of the object </param>
         /// <param name="o"> The object to deserialize </param>
         private static void DeserializeFields(IStorage storage, Type itemType, object o) {
+			if (itemType is AnimationCurve)
+			{
+				return;
+			}
             var fieldCount = storage.BeginReadFields();
+
 
             for (var i = 0; fieldCount == -1 ? storage.HasMore() : i < fieldCount; i++) {
                 var entry = storage.BeginReadField(new Entry() {
                     OwningType = itemType,
                     MustHaveName = true
                 });
-				Debug.Log(string.Format("Item Type is {0}", itemType));
-				if (itemType == typeof(AnimationCurve))
-				{
-					return;
-				}
-                var value = DeserializeObject(entry, storage);
 
+                var value = DeserializeObject(entry, storage);
 #if US_LOGGING
                 if (Radical.IsLogging()) {
                     Radical.Log(string.Format("Field {0} : {1}", entry.Name, value == null ? "null" : value.GetType().FullName));
@@ -2371,7 +2353,6 @@ namespace Serialization {
                 storage.EndReadField();
             }
             storage.EndReadFields();
-			Debug.Log(string.Format("Item Type after is {0}", itemType));
         }
 
         public class DeferredSetter {

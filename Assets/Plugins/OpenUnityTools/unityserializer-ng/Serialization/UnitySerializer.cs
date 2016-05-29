@@ -2290,7 +2290,7 @@ namespace Serialization {
 					return;
 				}
                 var value = DeserializeObject(entry, storage);
-				Debug.Log(string.Format("Item Type after is {0}", itemType));
+
 #if US_LOGGING
                 if (Radical.IsLogging()) {
                     Radical.Log(string.Format("Field {0} : {1}", entry.Name, value == null ? "null" : value.GetType().FullName));
@@ -2353,6 +2353,7 @@ namespace Serialization {
                 storage.EndReadField();
             }
             storage.EndReadFields();
+			Debug.Log(string.Format("Item Type after is {0}", itemType));
         }
 
         public class DeferredSetter {

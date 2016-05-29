@@ -230,7 +230,7 @@ public class SaveGameManager : MonoBehaviour {
 	private IEnumerator LoadSavesAndSerializers()
 	{
 		Serialization.UnitySerializer.AddPrivateType(typeof(AnimationClip));
-		Serialization.UnitySerializer.AddPrivateType(typeof(AnimationCurve));
+		Serialization.UnitySerializer.AddPrivateType(typeof(Keyframe));
 
 		yield return 0;
 		try {

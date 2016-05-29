@@ -2279,6 +2279,7 @@ namespace Serialization {
         private static void DeserializeFields(IStorage storage, Type itemType, object o) {
 			if (itemType is AnimationCurve)
 			{
+				Debug.Log("Animation Curve Field");
 				return;
 			}
             var fieldCount = storage.BeginReadFields();

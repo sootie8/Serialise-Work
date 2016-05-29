@@ -153,6 +153,21 @@ public class SerializeRect : SerializerExtensionBase<Rect> {
 	}
 }
 
+[Serializer(typeof(Keyframe))]
+public class SerializeKeyframe : SerializerExtensionBase<Keyframe> {
+	public override IEnumerable<object> Save(Keyframe target) 
+	{
+		return new object[] { target.inTangent, target.outTangent, target.tangentMode, target.time, target.value};
+	}
+
+	public override object Load(object[] data, object instance) 
+	{
+		var keyframe = new Keyframe((float)data[3], (float)data[4], (float)data[0], (float)data[1]);
+		keyframe.tangentMode = (int)data[2];
+		return keyframe;
+	}
+}
+
 public abstract class ComponentSerializerExtensionBase<T> : IComponentSerializer where T : Component {
     public abstract IEnumerable<object> Save(T target);
 

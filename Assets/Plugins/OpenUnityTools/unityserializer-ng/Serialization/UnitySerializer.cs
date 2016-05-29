@@ -2143,28 +2143,35 @@ namespace Serialization {
                     value = new DeferredSetter(d => toSet);
                 }
 				Debug.Log("2145");
-                if (value is DeferredSetter) {
+                if (value is DeferredSetter) 
+				{
+					Debug.Log("2148");
                     var st = value as DeferredSetter;
                     var nd = new DeferredSetter(st.deferredRetrievalFunction) { enabled = st.enabled };
+					Debug.Log("2151");
                     nd._setAction = () => {
                         if (o != null) {
                             o.Add(nd.deferredRetrievalFunction(st.parameters));
                         }
                     };
+					Debug.Log("2156");
                     AddFixup(nd);
+					Debug.Log("2158");
                 }
                 else {
                     o.Add(value);
                 }
+				Debug.Log("2163");
                 storage.EndReadListItem();
-				Debug.Log("2160");
+				Debug.Log("2165");
             }
+			Debug.Log("2167");
             if (currentVersion >= 7 && currentVersion < 9) {
                 DeserializeObjectAndProperties(o, itemType, storage);
             }
-
-            storage.EndReadList();
 			Debug.Log("2167");
+            storage.EndReadList();
+			Debug.Log("2169");
             return o;
         }
 

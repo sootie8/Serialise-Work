@@ -2142,7 +2142,6 @@ namespace Serialization {
                     var toSet = value;
                     value = new DeferredSetter(d => toSet);
                 }
-				Debug.Log(value is DeferredSetter);
 				Debug.Log("2145");
 			
                 if (value is DeferredSetter) 
@@ -2163,7 +2162,16 @@ namespace Serialization {
                 else 
 				{
 					Debug.Log("2163");
-                    o.Add(value);
+					Debug.Log(o.GetType());
+					Debug.Log(o.Count);
+					try
+					{
+						o.Add(value);
+					}
+					catch (System.Exception e)
+					{
+						Debug.Log(e);
+					}
                 }
 				Debug.Log("2166");
                 storage.EndReadListItem();

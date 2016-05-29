@@ -2158,20 +2158,22 @@ namespace Serialization {
                     AddFixup(nd);
 					Debug.Log("2158");
                 }
-                else {
+                else 
+				{
+					Debug.Log("2163");
                     o.Add(value);
                 }
-				Debug.Log("2163");
+				Debug.Log("2166");
                 storage.EndReadListItem();
-				Debug.Log("2165");
+				Debug.Log("2168");
             }
-			Debug.Log("2167");
+			Debug.Log("2170");
             if (currentVersion >= 7 && currentVersion < 9) {
                 DeserializeObjectAndProperties(o, itemType, storage);
             }
-			Debug.Log("2167");
+			Debug.Log("2174");
             storage.EndReadList();
-			Debug.Log("2169");
+			Debug.Log("2176");
             return o;
         }
 

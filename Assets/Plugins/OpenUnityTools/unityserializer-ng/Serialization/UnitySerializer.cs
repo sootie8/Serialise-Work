@@ -2182,7 +2182,9 @@ namespace Serialization {
                 Radical.IndentLog();
 #endif
                 DeserializeFields(storage, itemType, o);
+				Debug.Log("2185");
                 DeserializeProperties(storage, itemType, o);
+				Debug.Log("2187");
                 currentlySerializingObject = last;
 #if US_LOGGING
                 Radical.OutdentLog();
@@ -2191,7 +2193,9 @@ namespace Serialization {
                 return o;
             }
             finally {
+				Debug.Log("2196");
                 DeserializingObject = DeserializingStack.Pop();
+				Debug.Log("2198");
             }
         }
 

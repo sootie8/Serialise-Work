@@ -162,6 +162,7 @@ public class SerializeKeyframe : SerializerExtensionBase<Keyframe> {
 
 	public override object Load(object[] data, object instance) 
 	{
+		Debug.LogWarning("Load Called");
 		var keyframe = new Keyframe((float)data[3], (float)data[4], (float)data[0], (float)data[1]);
 		keyframe.tangentMode = (int)data[2];
 		return keyframe;

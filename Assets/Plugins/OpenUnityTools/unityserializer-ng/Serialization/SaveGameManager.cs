@@ -229,6 +229,9 @@ public class SaveGameManager : MonoBehaviour {
 
 	private IEnumerator LoadSavesAndSerializers()
 	{
+		Serialization.UnitySerializer.AddPrivateType(typeof(AnimationClip));
+		Serialization.UnitySerializer.AddPrivateType(typeof(AnimationCurve));
+
 		yield return 0;
 		try {
 			var stored = FilePrefs.GetString("_Save_Game_Data_");

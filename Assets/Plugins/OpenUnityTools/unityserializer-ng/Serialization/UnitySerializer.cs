@@ -1888,14 +1888,15 @@ namespace Serialization {
                 if (obj is IList) {
                     DeserializeList(obj as IList, itemType, storage);
                 }
-
+				Debug.Log("1891");
                 //Otherwise we are serializing an object
                 result2 = DeserializeObjectAndProperties(obj, itemType, storage);
+				Debug.Log("1894");
                 storage.EndReadObject();
                 if (result2 is IDeserialized) {
                     DeserializedObject.Add(result2 as IDeserialized);
                 }
-
+				Debug.Log("1899");
                 //Check for null
                 if (obj is Nuller) {
                     return null;
@@ -2136,11 +2137,12 @@ namespace Serialization {
                 };
                 var value = storage.BeginReadListItem(i, entry) ??
                      DeserializeObject(entry, storage);
+				Debug.Log("2140");
                 if (value != null && value.GetType().IsDefined(typeof(DeferredAttribute), true)) {
                     var toSet = value;
                     value = new DeferredSetter(d => toSet);
                 }
-
+				Debug.Log("2145");
                 if (value is DeferredSetter) {
                     var st = value as DeferredSetter;
                     var nd = new DeferredSetter(st.deferredRetrievalFunction) { enabled = st.enabled };
@@ -2155,12 +2157,14 @@ namespace Serialization {
                     o.Add(value);
                 }
                 storage.EndReadListItem();
+				Debug.Log("2160");
             }
             if (currentVersion >= 7 && currentVersion < 9) {
                 DeserializeObjectAndProperties(o, itemType, storage);
             }
 
             storage.EndReadList();
+			Debug.Log("2167");
             return o;
         }
 
@@ -2182,9 +2186,7 @@ namespace Serialization {
                 Radical.IndentLog();
 #endif
                 DeserializeFields(storage, itemType, o);
-				Debug.Log("2185");
                 DeserializeProperties(storage, itemType, o);
-				Debug.Log("2187");
                 currentlySerializingObject = last;
 #if US_LOGGING
                 Radical.OutdentLog();
@@ -2193,7 +2195,6 @@ namespace Serialization {
                 return o;
             }
             finally {
-				Debug.Log("2196");
                 DeserializingObject = DeserializingStack.Pop();
 				Debug.Log("2198");
             }
